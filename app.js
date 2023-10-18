@@ -32,6 +32,10 @@ const { Strike } = require("@tiptap/extension-strike");
 const { TaskItem } = require("@tiptap/extension-task-item");
 const { TaskList } = require("@tiptap/extension-task-list");
 const { Underline } = require("@tiptap/extension-underline");
+const { Table } = require("@tiptap/extension-table");
+const { TableCell } = require("@tiptap/extension-table-cell");
+const { TableRow } = require("@tiptap/extension-table-row");
+const { TableHeader } = require("@tiptap/extension-table-header");
 // const { Mention } = require("@tiptap/extension-mention");
 // const { Typography } = require("@tiptap/extension-typography");
 // const { Youtube } = require("@tiptap/extension-youtube");
@@ -69,6 +73,10 @@ const extensions = [
     TaskItem,
     TaskList,
     Underline,
+    Table,
+    TableRow,
+    TableCell,
+    TableHeader,
     Image];
 
 // 创建一个路径为/api/md2json的接口
