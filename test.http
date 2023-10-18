@@ -1,0 +1,18 @@
+
+###
+POST http://localhost:8095/api/md2json
+Content-Type: application/json
+
+{
+  "md": "# 标题\n\n## 次级标题\n\n## 列表\n\n* 无序1\n* 无序2\n* 无序3\n\n有序列表：\n\n1. 有序1\nGithub Flavored markdown\n1. 有序2\n1. 有序3\n\n## 代码块\n\n```javascript\napp.post(\"/api/json2html\", (req, res) => {\n    let {jsonStr} = req.body;\n    console.log(jsonStr)\n    // 返回JSON结构数据\n    res.json({\n        code: 0,\n        msg: \"success\",\n        data: generateHTML(JSON.parse(jsonStr), [StarterKit])\n    });\n});\n```\n## 表格\n\n搜索引擎|链接\n:---:|---\n百度|[百度](https://baidu.com)\n必应|[必应](https://bing.com)\n\n---\n\n分割线\n\n![](kernel_interface.png)"
+}
+
+
+
+###
+POST http://localhost:8095/api/json2html/test
+Content-Type: application/json
+
+{
+  "md": "# 标题\n\n## 次级标题\n\n## 列表\n\n* 无序1\n* 无序2\n* 无序3\n\n有序列表：\n\n1. 有序1\nGithub Flavored markdown\n1. 有序2\n1. 有序3\n\n## 代码块\n\n```javascript\napp.post(\"/api/json2html\", (req, res) => {\n    let {jsonStr} = req.body;\n    console.log(jsonStr)\n    // 返回JSON结构数据\n    res.json({\n        code: 0,\n        msg: \"success\",\n        data: generateHTML(JSON.parse(jsonStr), [StarterKit])\n    });\n});\n```\n## 表格\n\n搜索引擎|链接\n:---:|---\n百度|[百度](https://baidu.com)\n必应|[必应](https://bing.com)\n\n---\n\n分割线\n\n![](kernel_interface.png)"
+}
