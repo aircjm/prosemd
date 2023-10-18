@@ -7,8 +7,37 @@ const mdit = require('markdown-it')();
 
 const bodyParser = require('body-parser');
 const {generateHTML, generateJSON} = require('@tiptap/html');
-const {StarterKit} = require('@tiptap/starter-kit');
-const {Image} = require('@tiptap/extension-image');
+
+const { Document } = require("@tiptap/extension-document");
+const { Paragraph } = require("@tiptap/extension-paragraph");
+const { Image } = require("@tiptap/extension-image");
+const { Text } = require("@tiptap/extension-text");
+const { Bold } = require("@tiptap/extension-bold");
+const { Blockquote } = require("@tiptap/extension-blockquote");
+const { OrderedList } = require("@tiptap/extension-ordered-list");
+const { BulletList } = require("@tiptap/extension-bullet-list");
+const { ListItem } = require("@tiptap/extension-list-item");
+const { Code } = require("@tiptap/extension-code");
+const { CodeBlockLowlight } = require("@tiptap/extension-code-block-lowlight");
+const { Dropcursor } = require("@tiptap/extension-dropcursor");
+const { Gapcursor } = require("@tiptap/extension-gapcursor");
+const { HardBreak } = require("@tiptap/extension-hard-break");
+const { Heading } = require("@tiptap/extension-heading");
+const { Highlight } = require("@tiptap/extension-highlight");
+const { HorizontalRule } = require("@tiptap/extension-horizontal-rule");
+const { Italic } = require("@tiptap/extension-italic");
+const { Link } = require("@tiptap/extension-link");
+const { Placeholder } = require("@tiptap/extension-placeholder");
+const { Strike } = require("@tiptap/extension-strike");
+const { TaskItem } = require("@tiptap/extension-task-item");
+const { TaskList } = require("@tiptap/extension-task-list");
+const { Underline } = require("@tiptap/extension-underline");
+// const { Mention } = require("@tiptap/extension-mention");
+// const { Typography } = require("@tiptap/extension-typography");
+// const { Youtube } = require("@tiptap/extension-youtube");
+// const { CharacterCount } = require("@tiptap/extension-character-count");
+
+
 
 const app = express()
 
@@ -16,6 +45,31 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
 
 const PORT = 8095;
+
+
+const extensions = [
+    Document,
+    Paragraph,
+    Text,
+    Bold,
+    Blockquote,
+    OrderedList,
+    BulletList,
+    ListItem,
+    Code,
+    Dropcursor,
+    Gapcursor,
+    HardBreak,
+    Heading,
+    Highlight,
+    HorizontalRule,
+    Italic,
+    Link,
+    Strike,
+    TaskItem,
+    TaskList,
+    Underline,
+    Image];
 
 // 创建一个路径为/api/md2json的接口
 app.get('/', (req, res) => {
@@ -33,7 +87,7 @@ app.post("/api/md2json", (req, res) => {
 
     const htmlStr = mdit.render(md)
     console.log(htmlStr)
-    const json = generateJSON(htmlStr, [StarterKit, Image])
+    const json = generateJSON(htmlStr, extensions)
     // 返回JSON结构数据
     res.json({
         code: 0,
@@ -52,13 +106,13 @@ app.post("/api/json2html/test", (req, res) => {
 
     const htmlStr = mdit.render(md)
     console.log(htmlStr)
-    const json = generateJSON(htmlStr, [StarterKit, Image])
+    const json = generateJSON(htmlStr, extensions)
     console.log(json)
     // 返回JSON结构数据
     res.json({
         code: 0,
         msg: "success",
-        data: generateHTML(json, [StarterKit, Image])
+        data: generateHTML(json, extensions)
     });
 });
 
@@ -69,7 +123,7 @@ app.post("/api/json2html", (req, res) => {
     res.json({
         code: 0,
         msg: "success",
-        data: generateHTML(JSON.parse(jsonStr), [StarterKit, Image])
+        data: generateHTML(JSON.parse(jsonStr), extensions)
     });
 });
 
