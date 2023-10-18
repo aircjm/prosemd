@@ -3,8 +3,11 @@ const express = require('express');
 const { Schema } = require("prosemirror-model");
 const { defaultMarkdownParser } = require("prosemirror-markdown");
 
+const mdit = require('markdown-it')();
 
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
+const { generateHTML, generateJSON } = require('@tiptap/html');
+const { StarterKit } = require('@tiptap/starter-kit');
  
 const app = express()
  
@@ -27,10 +30,48 @@ app.post("/api/md", (req, res) => {
   // 将Markdown转换为JSON结构
   const schema = new Schema({ nodes: defaultMarkdownParser.schema.nodes });
   const doc = defaultMarkdownParser.parse(md, { schema });
-  const jsonOutput = doc.toJSON();
+  // const jsonOutput = doc.toString();
   
+ const jsonOutput =  mdit.render(md)
+ const json =  generateJSON(jsonOutput, [StarterKit])
+
+
+json.content = [    {
+  "type": "heading",
+  "attrs": {
+      "level": 2
+  },
+  "content": [
+      {
+          "type": "text",
+          "text": "信息系统战略规划"
+      }
+  ]
+},
+{
+  "type": "paragraph",
+  "content": [
+      {
+          "type": "text",
+          "text": "#todo ![[2023-10-16-14-38-39.png]]"
+      }
+  ]
+},
+{
+  "type": "heading",
+  "attrs": {
+      "level": 2
+  },
+  "content": [
+      {
+          "type": "text",
+          "text": "客户关系管理CRM"
+      }
+  ]
+}];
+
   // 返回JSON结构数据
-  res.json(jsonOutput);
+  res.json(generateJSON(generateHTML(json, [StarterKit]), [StarterKit]));
 });
 
 
